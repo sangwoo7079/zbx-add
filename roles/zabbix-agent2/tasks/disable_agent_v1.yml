@@ -1,0 +1,9 @@
+---
+- name: Disable zabbix-agent
+  ansible.builtin.systemd:
+    name: zabbix-agent
+    state: stopped
+    masked: yes
+  tags:
+    - never
+    - disable_agent_v1

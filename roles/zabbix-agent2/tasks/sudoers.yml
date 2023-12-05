@@ -1,0 +1,10 @@
+---
+# In all cases
+- name: Copy the 'zabbix' account into place, after passing validation with visudo | sudoers
+  ansible.builtin.copy:
+    src: sudoers/zabbix
+    dest: /etc/sudoers.d/zabbix
+    validate: /usr/sbin/visudo -cf %s
+  tags:
+    - sudoers
+    - no_internet

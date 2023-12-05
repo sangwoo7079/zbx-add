@@ -1,0 +1,3 @@
+---
+# zabbix-agent
+- include: add_host.yml

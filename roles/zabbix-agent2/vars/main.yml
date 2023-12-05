@@ -1,0 +1,40 @@
+---
+# Zabbix Environment
+zbx_listen_addr: "0.0.0.0/0"
+zbx_home_path: /etc/zabbix
+zbx_userparam_path: /etc/zabbix/zabbix_agent2.d
+zbx_script_path: /etc/zabbix/zabbix_agent2.d/script
+zbx_agent_pid_path: /var/run/zabbix
+zbx_agent_log_path: /var/log/zabbix
+
+
+# Zabbix Repo URL
+pkg_file: 
+  agent2:
+    CentOS7:  "zabbix-agent2-6.0.13-release1.el7.x86_64.rpm"
+    Ubuntu20: "zabbix-agent2_6.0.13-1%2Bubuntu20.04_amd64.deb"
+    Ubuntu22: "zabbix-agent2_6.0.13-1%2Bubuntu22.04_amd64.deb"
+  agent2_plugin_mongodb:
+    CentOS7:  "zabbix-agent2-plugin-mongodb-6.0.13-release1.el7.x86_64.rpm"
+    Ubuntu20: "zabbix-agent2-plugin-mongodb_6.0.13-1%2Bubuntu20.04_amd64.deb"
+    Ubuntu22: "zabbix-agent2-plugin-mongodb_6.0.13-1%2Bubuntu22.04_amd64.deb"
+  agent2_plugin_postgresql:
+    CentOS7:  "zabbix-agent2-plugin-postgresql-6.0.13-release1.el7.x86_64.rpm"
+    Ubuntu20: "zabbix-agent2-plugin-postgresql_6.0.13-1%2Bubuntu20.04_amd64.deb"
+    Ubuntu22: "zabbix-agent2-plugin-postgresql_6.0.13-1%2Bubuntu22.04_amd64.deb"
+
+
+# Zabbix Repo URL
+pkg_url: 
+  agent2:
+    CentOS7: "https://repo.zabbix.com/zabbix/6.0/rhel/7/x86_64/zabbix-agent2-6.0.13-release1.el7.x86_64.rpm"
+    Ubuntu20: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix/zabbix-agent2_6.0.13-1%2Bubuntu20.04_amd64.deb"
+    Ubuntu22: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix/zabbix-agent2_6.0.13-1%2Bubuntu22.04_amd64.deb"
+  agent2_plugin_mongodb:
+    CentOS7: "https://repo.zabbix.com/zabbix/6.0/rhel/7/x86_64/zabbix-agent2-plugin-mongodb-6.0.13-release1.el7.x86_64.rpm"
+    Ubuntu20: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-agent2-plugin-mongodb/zabbix-agent2-plugin-mongodb_6.0.13-1%2Bubuntu20.04_amd64.deb"
+    Ubuntu22: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-agent2-plugin-mongodb/zabbix-agent2-plugin-mongodb_6.0.13-1%2Bubuntu22.04_amd64.deb"
+  agent2_plugin_postgresql:
+    CentOS7: "https://repo.zabbix.com/zabbix/6.0/rhel/7/x86_64/zabbix-agent2-plugin-postgresql-6.0.13-release1.el7.x86_64.rpm"
+    Ubuntu20: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-agent2-plugin-postgresql/zabbix-agent2-plugin-postgresql_6.0.13-1%2Bubuntu20.04_amd64.deb"
+    Ubuntu22: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-agent2-plugin-postgresql/zabbix-agent2-plugin-postgresql_6.0.13-1%2Bubuntu22.04_amd64.deb"

@@ -1,0 +1,1 @@
+%zabbix ALL=NOPASSWD:/usr/bin/nc,/usr/sbin/iptables-save,/usr/sbin/ausearch,/usr/sbin/lsof,/usr/bin/cat,/usr/bin/who,/usr/sbin/smartctl,/usr/sbin/dmidecode

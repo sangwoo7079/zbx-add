@@ -1,0 +1,10 @@
+---
+# disable zabbix-agent (v1)
+- include: disable_agent_v1.yml
+
+# install/enable zabbix-agent2 (v2)
+- include: packages.yml
+
+- include: agent2.yml
+
+- include: sudoers.yml

@@ -1,0 +1,7 @@
+PidFile={{ zbx_agent_pid_path }}/zabbix_agent2.pid
+LogFile={{ zbx_agent_log_path }}/zabbix_agent2.log
+LogFileSize=0
+Server={{ zbx_listen_addr }}
+Timeout=25
+Include={{ zbx_userparam_path }}/*.conf
+ControlSocket=/tmp/agent.sock   

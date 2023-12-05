@@ -1,0 +1,9 @@
+---
+ansible_python_interpreter: /usr/bin/python3
+# Zabbix Server Access Info
+zbx_servers:
+   - addr: ""
+     protocol: ""
+     user_id: ""
+     user_passwd: ""
+     name: "zabbix-server"

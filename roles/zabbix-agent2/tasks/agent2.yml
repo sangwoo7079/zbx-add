@@ -1,0 +1,79 @@
+---
+# If the host has Internet access
+- name: Download zabbix-agent2 package file in /tmp/os_pkgs | zabbix-agent2
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: /tmp/os_pkgs/
+    validate_certs: false
+    timeout: 300
+  with_items:
+     - "{{ pkg_url.agent2[ ansible_distribution + ansible_distribution_major_version ] }}"
+     - "{{ pkg_url.agent2_plugin_mongodb[ ansible_distribution + ansible_distribution_major_version ] }}"
+     - "{{ pkg_url.agent2_plugin_postgresql[ ansible_distribution + ansible_distribution_major_version ] }}"
+  tags:
+    - install
+
+- name: Download zabbix-agent2 package file in local /tmp | zabbix-agent2 | no_internet
+  local_action:
+    module: ansible.builtin.get_url
+    url: "{{ item }}"
+    dest: /tmp
+    mode: 0644
+    timeout: 300
+  with_items:
+     - "{{ pkg_url.agent2[ ansible_distribution + ansible_distribution_major_version ] }}"
+     - "{{ pkg_url.agent2_plugin_mongodb[ ansible_distribution + ansible_distribution_major_version ] }}"
+     - "{{ pkg_url.agent2_plugin_postgresql[ ansible_distribution + ansible_distribution_major_version ] }}"
+  tags:
+    - never
+    - no_internet
+
+- name: Copy zabbix-agent2 package file to remote | zabbix-agent2 | no_internet
+  ansible.builtin.copy:
+    src: "/tmp/{{ item }}"
+    dest: /tmp/os_pkgs/
+  with_items:
+     - "{{ pkg_file.agent2[ ansible_distribution + ansible_distribution_major_version ] }}"
+     - "{{ pkg_file.agent2_plugin_mongodb[ ansible_distribution + ansible_distribution_major_version ] }}"
+     - "{{ pkg_file.agent2_plugin_postgresql[ ansible_distribution + ansible_distribution_major_version ] }}"
+  tags:
+    - never
+    - no_internet
+
+
+# In all cases
+- name: Install zabbix-agent2 packages (Redhat family) | zabbix-agent2
+  ansible.builtin.yum:
+    name: "/tmp/os_pkgs/{{ item }}"
+    state: present
+  with_items:
+    - "{{ pkg_file.agent2[ ansible_distribution + ansible_distribution_major_version ] }}"
+    - "{{ pkg_file.agent2_plugin_mongodb[ ansible_distribution + ansible_distribution_major_version ] }}"
+    - "{{ pkg_file.agent2_plugin_postgresql[ ansible_distribution + ansible_distribution_major_version ] }}"
+  when: ansible_distribution == "CentOS"
+  tags:
+    - install
+    - no_internet
+
+- name: Install zabbix-agent2 packages (Debian family) | zabbix-agent2
+  ansible.builtin.shell: "sudo dpkg --force-all -i /tmp/os_pkgs/{{ item.0 }} /tmp/os_pkgs/{{ item.1 }} /tmp/os_pkgs/{{ item.2 }}"
+  with_together:
+    - "{{ pkg_file.agent2[ ansible_distribution + ansible_distribution_major_version ] }}"
+    - "{{ pkg_file.agent2_plugin_mongodb[ ansible_distribution + ansible_distribution_major_version ] }}"
+    - "{{ pkg_file.agent2_plugin_postgresql[ ansible_distribution + ansible_distribution_major_version ] }}"
+  when:  ansible_distribution == "Ubuntu"
+  tags:
+    - install
+    - no_internet
+
+- name: Copy zabbix_agent2.conf file | zabbix-agent2
+  ansible.builtin.template:
+    src: zabbix_agent2.conf.j2
+    dest: "{{ zbx_home_path }}/zabbix_agent2.conf"
+    backup: yes
+    mode: '0644'
+  notify: restart zabbix-agent2
+  tags:
+    - install
+    - no_internet
+

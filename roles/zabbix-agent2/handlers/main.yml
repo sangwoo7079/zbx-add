@@ -1,0 +1,12 @@
+---
+- name: systemctl daemon_reexec
+  ansible.builtin.systemd:
+      daemon_reload: yes
+
+- name: restart zabbix-agent2
+  ansible.builtin.service:
+    name: zabbix-agent2
+    state: restarted
+    enabled: yes
+  listen: event_restart_zabbix_agent2
+

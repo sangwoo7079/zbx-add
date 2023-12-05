@@ -1,0 +1,42 @@
+---
+- name: Create host groups
+  delegate_to: 'localhost'
+  zabbix_group:
+    validate_certs: no
+    server_url: "{{ item.protocol }}://{{ item.addr }}"
+    login_user: "{{ item.user_id }}"
+    login_password: "{{ item.user_passwd }}"
+    host_groups: "{{ host_group }}"
+    state: present
+  loop: "{{ zbx_servers }}"
+  tags:
+    - zbx_grp_add
+
+- name: Create a new host
+  delegate_to: 'localhost'
+  zabbix_host:
+    validate_certs: no
+    server_url: "{{ item.protocol }}://{{ item.addr }}"
+    login_user: "{{ item.user_id }}"
+    login_password: "{{ item.user_passwd }}"
+    host_name: "{{ inventory_hostname }}"
+    visible_name: "{{ inventory_hostname }}"
+    host_groups: "{{ host_group }}"
+    status: disabled
+    state: present
+    # TODO: need for improvement
+    interfaces:
+      - type: 1
+        main: 1
+        useip: 1
+        ip: "{{ ansible_host }}"
+        dns: ""
+        port: "10050"
+    link_templates: "{{ infra_link_templates }}" 
+    inventory_mode: manual
+    inventory_zabbix:
+      os: "{{ ansible_distribution }}"
+  loop: "{{ zbx_servers }}"
+  tags:
+    - zbx_host_add
+
